@@ -25,6 +25,6 @@ def classify_content(text_content, model="llama3.2:3b"):
         data = response.json()
         print(data['choices'][0]['text'])
         if len(data['choices'][0]['text'].split()) == 1 :
-
             return data['choices'][0]['text']
         response = requests.post(url, headers=headers, json=payload)
+    return "unclassified"
