@@ -1,4 +1,5 @@
 import psycopg2
+#TODO refactor na alchemy
 
 def fetch_latest_url():
     """Fetch the latest URL from the database."""
@@ -28,4 +29,5 @@ def fetch_all_urls():
     cursor.execute("SELECT long_url FROM url")
     url_tuples = cursor.fetchall()
     conn.close()
-    return [url_tuple[0] for url_tuple in url_tuples]
+    return url_tuples
+    # return [url_tuple[0] for url_tuple in url_tuples]
