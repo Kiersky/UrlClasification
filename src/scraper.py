@@ -7,3 +7,5 @@ def scrape_website(url,total_context=1000):
     soup = BeautifulSoup(response.content, 'html.parser')
     text_content = soup.get_text()
     return text_content[:total_context]
+
+#TODO improve parser to pass cookies popups

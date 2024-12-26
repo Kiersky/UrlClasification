@@ -6,25 +6,29 @@ def classify_content(text_content, model="llama3.2:3b"):
     headers = {
         'Content-Type': 'application/json',
     }
-    prompt = text_content + "classify what category of website is it, return category in 1 word only"
+    #prompt = "classify what category of website is it, return category in 1 word only:" + text_content
+    category_list = ["Personal or Individual", "Portfolio", "Personal blogs", "Resumes or CVs", "Business and Commercial", "E-commerce", "Corporate", "Service-based", "Educational", "Online learning platforms", "School or university", "Research", "Media and Entertainment", "News", "Streaming", "Music and video", "Community and Social", "Social networks", "Forums or discussion boards", "Nonprofit", "Technology", "Tech blogs", "Software tools", "Gaming", "Health and Fitness", "Healthcare", "Wellness blogs", "Fitness tracking", "Travel and Tourism", "Travel blogs", "Tour operators", "Hotels and accommodation", "Lifestyle", "Food and cooking blogs", "Fashion and beauty", "DIY or crafts", "Professional or Industrial", "Legal", "Construction and real estate", "Financial", "Miscellaneous", "Events", "Q&A, knowledge-sharing", "Auctions"]
     payload = {
-        "prompt": prompt,
-        "model": model
+        "model": model,
+        "prompt": f"""You are a classifier model for websites, which returns only category. Category list is: {category_list} or any other you find appropriate.
+
+    What is the category of this website? {text_content}
+    This looks like a website about:...
+    I want a Response only with the category.
+        """
+
     }
-    # response = requests.post(url, headers=headers, json=payload)
-    # if response.status_code == 200:
-    #     data = response.json()
-    #     return data['choices'][0]['text']
-    # else:
-    #     raise Exception(f"Request failed with status code {response.status_code}")
+    # TODO consider chat style api
+
     i=0
     response = requests.post(url, headers=headers, json=payload)
+    print(response.json())
     while response.status_code == 200 and i<10:
         i+=1
         print(i)
         data = response.json()
         print(data['choices'][0]['text'])
-        if len(data['choices'][0]['text'].split()) == 1 :
+        if len(data['choices'][0]['text'].split()) < 4 :
             return data['choices'][0]['text']
         response = requests.post(url, headers=headers, json=payload)
     return "unclassified"

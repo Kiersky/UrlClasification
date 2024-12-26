@@ -14,6 +14,6 @@ if __name__ == "__main__":
         url.append(classify_content(limited_text_content))
         print(str(url[0]) + " - " + url[1] + " - " + url[2])
     print(url_list)
-
-    for record in url_list:
-        update_category(record)
+    #updating categories in database
+    # for record in url_list:
+    #     update_category(record)
