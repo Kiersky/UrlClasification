@@ -46,3 +46,17 @@ def update_category(record):
     cursor.execute(update_query, (record[2], record[0]))
     conn.commit()
     conn.close()
+
+def execute_query(query):
+
+    conn = psycopg2.connect(
+        dbname='postgres',
+        user='postgres',
+        password='mysecretpassword',
+        host='localhost',
+        port='5432'
+    )
+    cursor = conn.cursor()
+    cursor.execute(query)
+    conn.commit()
+    conn.close()
