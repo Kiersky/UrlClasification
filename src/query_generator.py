@@ -6,7 +6,7 @@ def generate_query(text_input, model="codellama"):
         'Content-Type': 'application/json',
     }
 
-    prompt = f"""You are sql DML query generator. This is table you can operate on: 
+    prompt = f"""You are sql DML query generator for PostgreSQL. This is table you can operate on: 
         create table url
        (
        id              bigint not null
